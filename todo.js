@@ -114,7 +114,7 @@ function addTodoItem(todo) {
     const request = objectStore.add(todo);
 }
 
-// Databaseden todolar çek, her todoyu tek tek foreach ile gez ve her todoyu ui ekle
+// Fetch all todo items from DB
 function fetchTodoItems() {
     const transaction = db.transaction([todoTableName], 'readonly');
     const objectStore = transaction.objectStore(todoTableName);
@@ -122,53 +122,48 @@ function fetchTodoItems() {
 
     request.onsuccess = (event) => {
         const todos = event.target.result;
-        console.log(todos)
-        // Tüm todo öğelerini işle
+        // Render TODO Row
         todos.forEach(todo => {
             addItemToUI(todo)
         });
-
-      };
+    };
 }
 
 // 
 function updateTodoCompletion(todoId) {
-    
     const transaction = db.transaction([todoTableName], 'readwrite');
     const objectStore = transaction.objectStore(todoTableName);
-    const getRequest = objectStore.get(todoId);
-    
+    const keyRange = IDBKeyRange.only(todoId);
+    const getRequest = objectStore.index('idIndex').openCursor(keyRange);
+
     getRequest.onsuccess = function(event) {
-        const todo = event.target.result;
-        
-        console.log(todo);
-        if (todo) {
-            todo.completed = todo.completed ? false : true;
-            putTodo(todo);
+        const cursor = event.target.result;
+
+        if (cursor) {
+            const todo = cursor.value;
+            todo.completed = !todo.completed;
+
+            // Update todo data with cursor indicated
+            const updateRequest = cursor.update(todo);
+            updateRequest.onsuccess = (event) => {
+                applyTodoCompletedStateOnUI(todo);
+            };
         }
     };
 }
 
-function putTodo(todo){
-    const transaction = db.transaction([todoTableName], 'readwrite');
-    const objectStore = transaction.objectStore(todoTableName);
-    const updateRequest = objectStore.put(todo);
-    applyTodoCompletedStateOnUI(todo);
-}
-
 // Database Oluştur ya da aç
 function startDBConnection() {
-    const request = indexedDB.open('todosDB', 1);
+    const request = indexedDB.open('todosDB', 2);
 
     request.onsuccess = (event) => {
         db = event.target.result;
-        console.log("IndexedDB oluştu");
         fetchTodoItems();
     };
 
     request.onupgradeneeded = (event) => {
         db = event.target.result;
         const objectStore = db.createObjectStore(todoTableName, { autoIncrement: true });
-        console.log("Tablo oluştu");
+        objectStore.createIndex('idIndex', 'id', { unique: true });
     };
 }
