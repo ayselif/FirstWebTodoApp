@@ -1,0 +1,127 @@
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#main-container {
+    display: block;
+    float: left;
+    box-sizing: border-box;
+    padding: 10px;
+    width: 75%;
+}
+
+#title-label {
+    color: rgb(0, 0, 0);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    margin-right: 5%;
+    width: 75%;
+    display: flex ;
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+#delete-all {
+    display: flex ;
+    float: right;
+    background-color: transparent;
+    border: none;
+    color: #000000;
+}
+
+.card-row {
+    border: 1px solid rgb(182, 182, 182);
+    width: 100%;
+    display: block ;
+    float: left;
+    padding: 10px;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+#entry-place {
+    display: flex;
+    align-items: flex-start;
+}
+
+#task-list-container {
+    display: block ;
+    float: left;
+    height: 100%;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.todo {
+    display: flex;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    background: white;
+    padding: 10px;
+    margin-top: 8px;
+    border: 1px solid #a19e9e;
+    border-radius: 6px;
+    vertical-align: middle;
+    width: 49%;
+    float: left;
+    box-sizing: border-box;
+}
+
+.todo:nth-child(odd) {
+    margin-right: 2%;
+}
+
+.todo span {
+    text-transform: capitalize;
+    padding-left: 6px;
+}
+
+#todo-input {
+    flex-grow: 1;
+    margin-right: 10px;
+    padding: 8px;
+    border: 1px dashed #ccc;
+    border-radius: 6px;
+    height: 40px;
+    box-sizing: border-box;
+}
+
+#todo-add {
+    border: 1px solid #ccc;
+    background-color: hsl(0deg 0% 92.94%);
+    color: #6a6a6a;
+    height: 40px;
+    width: 40px;
+    border-radius: 4px;
+    position: relative;
+    top: 1px;
+}
+
+input[type='radio'] {
+    accent-color: #232323;
+}
+
+@media only screen and (max-width: 750px) {
+    #main-container {
+        width: 100%;
+    }
+
+    .todo:nth-child(odd) {
+        margin-right: 0;
+    }
+
+    .todo {
+        width: 100%;
+    }
+}

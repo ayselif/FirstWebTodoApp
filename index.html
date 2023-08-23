@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Todo List</title>
+</head>
+<body>
+    <div id="main">
+        <div id="main-container" class="container">
+            <div id="placeholder-todo" class="todo" style="display: none;">
+                <input type="radio" class="task-check">
+                <span id="task-name">First Task</span>
+            </div>
+    
+            <div class="card-row"> 
+                <label id="title-label" for="title">TODO LIST</label>
+                <button  id="delete-all"><i class="fa fa-trash fa-2x"></i></button>
+            </div>
+            <div id="task-list-container">
+                <div id="todo-list"></div>
+            </div>
+            <div id="entry-place" class="card-row">
+                <input type="text" id="todo-input" placeholder="Add New Todo">
+                <button id="todo-add" > <i class="fa fa-plus"></i></button>
+            </div>
+        </div>
+    </div>
+    <script src="todo.js"></script>
+</body>
+</html>
